@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="./level-2/words.js"></script>
+    <style>
+      html,
+      body {
+        height: 100%;  
+      }
+      
+      body {
+        display: flex;
+        align-items: center;
+      }
+      
+      body,
+      .btn {
+        transition: background-color .5s ease-in-out;
+      }
+      
+      .btn {
+        font-size: 25px; 
+      }
+
+      .quote,
+      .author {
+        transition: color .5s ease-in-out;
+        font-size: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="quote-box" class="container">
+      <div class="sub-container col-12">
+        <div id="text" class="row">
+          <div class="offset-1 col-10 mt-4">
+            <div class="text-center">
+              <div class="p-2 h3">
+                <div class="quote"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-12">
+            <div class="col-12 mb-4 text-center">
+              <a id="new-quote" class="btn">
+                  New Word
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var currentQuote;
+
+      (function() {
+        ajaxCall();
+      })();
+
+      $('#tweet-quote').on('click', function() {
+        window.open("https://www.twitter.com/intent/tweet?text=" + currentQuote);
+      })
+
+      $('#new-quote').on('click', function() {
+        $('.quote').css('color', 'white')
+        $('.author').css('color', 'white')
+        setTimeout(function() {
+          ajaxCall()
+        }, 500)
+      })
+
+      function ajaxCall() {
+        getQuote(words);
+      }
+
+      function getQuote(quotesData) {
+        var randomNumber = generateRandomNumber(quotesData.length);
+        var randomColor = generateRandomColor();
+
+        $('.sub-container').css('background-color', 'white')
+        $('body').css('background-color', randomColor)
+
+        $('.quote')
+        .append("<a href=`https://tureng.com/tr/turkce-ingilizce/${quotesData[randomNumber]}`>" + quotesData[randomNumber] + "</a>")
+        .css('color', randomColor)
+        $('.btn').css('background-color', randomColor).css('color', 'white')
+
+        currentQuote = quotesData[randomNumber];
+      }
+
+      function generateRandomNumber(length) {
+        return parseInt(Math.random() * (length));
+      }
+
+      function generateRandomColor() {
+          var randomColor = generateRandomNumber(0xFFFFFF<<0).toString(16);
+          var length = randomColor.length;
+          for(var i = 0; i < length; i++) {
+            if(length < 6) {
+              randomColor = 0 + randomColor;
+              length++;
+            }
+          }
+
+          return ('#' + randomColor);
+      }
+    </script>
+  </body>
+</html>
