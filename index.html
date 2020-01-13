@@ -67,6 +67,7 @@
 
       $('#new-quote').on('click', function() {
         $('.quote').css('color', 'white')
+        $('.quote).empty();
         $('.author').css('color', 'white')
         setTimeout(function() {
           ajaxCall()
@@ -83,8 +84,7 @@
 
         $('.sub-container').css('background-color', 'white')
         $('body').css('background-color', randomColor)
-
-        $('.quote).empty();
+        
         $('.quote')
         .append("<a target='_blank' href=`https://tureng.com/tr/turkce-ingilizce/${quotesData[randomNumber]}`>" + quotesData[randomNumber] + "</a>")
         .css('color', randomColor)
