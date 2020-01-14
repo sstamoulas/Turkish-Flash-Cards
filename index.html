@@ -38,7 +38,7 @@
           <div class="offset-1 col-10 mt-4">
             <div class="text-center">
               <div class="p-2 h3">
-                <div class="quote"></div>
+                <a class="quote"></a>
               </div>
             </div>
           </div>
@@ -67,7 +67,6 @@
 
       $('#new-quote').on('click', function() {
         $('.quote').css('color', 'white')
-        $('.quote').empty();
         $('.author').css('color', 'white')
         setTimeout(function() {
           ajaxCall()
@@ -86,7 +85,9 @@
         $('body').css('background-color', randomColor)
         
         $('.quote')
-        .append("<a target='_blank' href='https://tureng.com/tr/turkce-ingilizce/" + quotesData[randomNumber] + "'>" + quotesData[randomNumber] + "</a>")
+        .attr("target", "_blank")
+        .href("https://tureng.com/tr/turkce-ingilizce/" + quotesData[randomNumber])
+        .text(quotesData[randomNumber])
         .css('color', randomColor)
         $('.btn').css('background-color', randomColor).css('color', 'white')
 
